@@ -9,7 +9,22 @@ Author URI:
 License: GPL2
 */
 
-add_filter('show_admin_bar', '__return_false');
+function add_permission(){
+	$role = get_role('author');
+	$role->add_cap('upload_files');
+}
 
-add_filter('admin_menu', '');
+function add_feature_image($post){
+	if(get_post_type($post) === 'dish'){
+		$dish_image_id = get_field("dish_image", $post->ID);
+		set_post_thumbnail($post, $dish_image_id);
+	}
+}
+
+add_filter('show_admin_bar', '__return_false');
+add_filter('new_to_publish', 'add_feature_image');
+add_filter('draft_to_publish', 'add_feature_image');
+add_filter('auto-draft_to_publish', 'add_feature_image');
+add_filter('pending_to_publish', 'add_feature_image');
+add_action('admin_init', 'add_permission');
 ?>
