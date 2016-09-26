@@ -26,7 +26,7 @@ add_filter('new_to_publish', 'add_feature_image');
 add_filter('draft_to_publish', 'add_feature_image');
 add_filter('auto-draft_to_publish', 'add_feature_image');
 add_filter('pending_to_publish', 'add_feature_image');
-if (current_user_can('contributor') && !current_user_can('upload_files')){
+if (current_user_can('author') && !current_user_can('upload_files')){
 	add_action('admin_init', 'add_permission');
 }
 ?>
